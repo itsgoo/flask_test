@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+	{{context.tag_data.tag_name}}
+{% endblock %}
+
+{% block content_title %}
+	Tag: 
+{{context.tag_data.tag_name}}
+
+{% endblock %}
+
+{% block content %}
+	<div class="main-content">
+		{% for post in context.tag_posts %}
+			<a href="{{ url_for('posts.post_detail', slug=post.slug) }}">{{post.title}}</a>
+			<p>{{post.body}}</p>
+			<p>{{post.created}}</p>
+		{% endfor %}
+	</div>
+	
+		
+
+{% endblock %}
+
+
+
+
+
+
+

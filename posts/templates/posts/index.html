@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+
+{% endblock %}
+
+{% block content_title %}
+	Posts
+{% endblock %}
+
+{% block content %}
+
+
+
+
+	{% for post in context.posts %}
+
+	<a href="{{ url_for('posts.post_detail', slug=post.slug) }}">{{post.title}}</a>
+	<p>
+		{{post.id}}
+		{{post.body}}
+		{{post.created}}
+	</p>
+	{% endfor %}
+{% endblock %}
+
+
+
+
+
+
+

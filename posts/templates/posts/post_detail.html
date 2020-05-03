@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+	{{context.post_data.title}}
+{% endblock %}
+
+{% block content_title %}
+	Post: 
+{{context.post_data.title}}
+
+{% endblock %}
+
+{% block content %}
+	<div class="tags">
+		{% for tag in context.post_tags %}
+			<a href="{{ url_for('posts.tag_detail', slug= tag.tag_slug) }}"><span class="badge badge-success">{{tag.tag_name}}</span></a>
+		{% endfor %}
+	</div>
+	
+	<div class="main-content">
+		
+		<p>{{context.post_data.body}}</p>
+		<p>{{context.post_data.created}}</p>
+		
+	</div>
+
+{% endblock %}
+
+
+
+
+
+
+
