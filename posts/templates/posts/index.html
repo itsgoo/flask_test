@@ -14,15 +14,51 @@
  
 
 
-	{% for post in context.posts %}
-
-	<a href="{{ url_for('posts.post_detail', slug=post.slug) }}">{{post.title}}</a>
-	<p>
-		{{post.id}}
-		{{post.body}}
-		{{post.created}}
-	</p>
+	{% for post in context.pages.items %}
+		<a href="{{ url_for('posts.post_detail', slug=post.slug) }}">{{post.title}}</a>
+		<p>
+			{{post.id}}
+			{{post.body}}
+			{{post.created}}
+		</p>
 	{% endfor %}
+
+
+
+
+	<nav aria-label="...">
+		<ul class="pagination">
+
+			<li class="page-item {% if not context.pages.has_prev %}disabled{% endif %}">
+
+				<a class="page-link" href="./?page={{ context.pages.prev_num }}" tabindex="-1" aria-disabled="true">Previous</a>
+
+			</li>
+
+			{% for page in context.pages.iter_pages() %}
+			
+			
+			<li class="page-item {% if page == context.pages.page %}active{% endif %}">
+				<a class="page-link" href="./?page={{ page }}">{{ page }}</a>
+			</li>
+
+			{% endfor %}
+
+
+			<li class="page-item {% if not context.pages.has_next %}disabled{% endif %}">
+
+				<a class="page-link" href="./?page={{ context.pages.next_num }}">Next</a>
+
+			</li>
+
+		</ul>
+	</nav>
+
+
+
+
+
+
 {% endblock %}
 
 
