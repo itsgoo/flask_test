@@ -10,7 +10,7 @@ from app import db
 from flask import redirect
 from flask import url_for
 
-# create folder for this app and register app prefix
+# create folder for this app templates and register app prefix
 posts = Blueprint('posts', __name__, template_folder='templates') 
 
 

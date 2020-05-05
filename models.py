@@ -57,10 +57,18 @@ class Tag(db.Model):
 
 
 
+class Currency(db.Model):
+	id = db.Column(db.Integer, primary_key = True)
+	currency_name = db.Column(db.String(100))
+	currency_value = db.Column(db.Integer)
+	currency_date = db.Column(db.DateTime, default=datetime.now())
+
+	def __init__(self, *args, **kwargs):
+		super(Currency, self).__init__(*args, **kwargs)
 
 
-
-
+	def __repr__(self):
+		return '<currency id: {}, currency_name: {}>'.format(self.id, self.currency_name)
 
 
 
