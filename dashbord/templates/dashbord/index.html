@@ -12,31 +12,126 @@ Currency
 {% block content %}
 
 
-<div class="col-md-4">
+<div class="col-md-4 mb-3 mt-2">
 
-	<form action="{{ url_for('dashbord.index') }}" method="POST" >
-		{% for field in form %}
-		<div class="form-group">
-			{{ field.label(class='control-label') }}
-			{{ field(class='form-control') }}
+	<form action="{{ url_for('dashbord.index') }}" method="POST" class="form-inline">
+		<div class="form-group ">
+			{% for field in form %}
+			<div class="form-group mx-sm-3">
+				{{ field.label(class='control-label mx-sm-3') }}
+				{{ field(class='form-control') }}
+			</div>
+			{% endfor %}
+			<button class="btn btn-success " type="submitt">Update Currency</button>
 		</div>
-		{% endfor %}
-		<button class="btn btn-success" type="submitt">Update Currency</button>
 	</form>
 </div>
 
 
 
-{% for currency_one in currency %}
-
-<p>{{currency_one.currency_name}} : {{currency_one.currency_value}}</p>
 
 
-{% endfor %}
+
+
+
+
+
+
+
+
+<div class="col-md-12 ">
+	<div class=" float-left col-md-6">
+
+
+
+		<canvas id="myChart" width="200" height="100"></canvas>
+		<script>
+		var mass_dates = ['{{ mass_dates[0] }}', '{{ mass_dates[1] }}', '{{ mass_dates[2] }}', '{{ mass_dates[3] }}', '{{ mass_dates[4] }}', '{{ mass_dates[5] }}', '{{ mass_dates[6] }}'];
+		var mass_currency = ['{{ mass_currency[0] }}', '{{ mass_currency[1] }}', '{{ mass_currency[2] }}', '{{ mass_currency[3] }}', '{{ mass_currency[4] }}', '{{ mass_currency[5] }}', '{{ mass_currency[6] }}'];
+		var ctx = document.getElementById('myChart').getContext('2d');
+		var chart = new Chart(ctx, {
+		    // The type of chart we want to create
+		    type: 'line',
+
+		    // The data for our dataset
+		    data: {
+		        labels: mass_dates,
+		        datasets: [{
+		            label: 'USD to ILS',
+		            backgroundColor: 'rgb(255, 99, 132)',
+		            borderColor: 'rgb(255, 99, 132)',
+		            data: mass_currency
+		        }]
+		    },
+
+		    // Configuration options go here
+		    options: {}
+		});
+		</script>
+
+		<ul class="list-group ">
+		{% for currency_one in currency_usd_to_ils %}
+
+			<li class="list-group-item"> {{currency_one.currency_date.strftime('%Y-%m-%d %H-%M')}} : {{currency_one.currency_name}} : {{currency_one.currency_value}}</li>
+
+		{% endfor %}
+		</ul>
+	</div>
+
+
+
+
+
+
+
+
+	<div class="float-right col-md-6">
+
+
+		<canvas id="myChart2" width="200" height="100"></canvas>
+		<script>
+		var mass_dates = ['{{ mass_dates_2[0] }}', '{{ mass_dates_2[1] }}', '{{ mass_dates_2[2] }}', '{{ mass_dates_2[3] }}', '{{ mass_dates_2[4] }}', '{{ mass_dates_2[5] }}', '{{ mass_dates_2[6] }}'];
+		var mass_currency = ['{{ mass_currency_2[0] }}', '{{ mass_currency_2[1] }}', '{{ mass_currency_2[2] }}', '{{ mass_currency_2[3] }}', '{{ mass_currency_2[4] }}', '{{ mass_currency_2[5] }}', '{{ mass_currency_2[6] }}'];
+		var ctx = document.getElementById('myChart2').getContext('2d');
+		var chart = new Chart(ctx, {
+		    // The type of chart we want to create
+		    type: 'line',
+
+		    // The data for our dataset
+		    data: {
+		        labels: mass_dates,
+		        datasets: [{
+		            label: 'LSD to RUB',
+		            backgroundColor: '#007bff',
+		            borderColor: '#007bff',
+		            data: mass_currency
+		        }]
+		    },
+
+		    // Configuration options go here
+		    options: {}
+		});
+		</script>
+
+
+
+		<ul class="list-group ">
+		{% for currency_one in currency_ils_to_rub %}
+
+			<li class="list-group-item"> {{currency_one.currency_date}} : {{currency_one.currency_name}} : {{currency_one.currency_value}}</li>
+
+		{% endfor %}
+		</ul>
+	</div>
+</div>
+
+
+
+
+
 
 
 {% endblock %}
-
 
 
 

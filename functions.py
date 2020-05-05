@@ -47,9 +47,25 @@ def get_content(ready_url):
 
 
 
+def reverce_val(query):
+
+	mass_dates = []
+	for i in query:
+		mass_dates.append(str(i.currency_date.strftime('%d %H-%M')))
+
+	mass_dates_rev = []
+	for i in reversed(mass_dates):
+		mass_dates_rev.append(i)
 
 
 
+	mass_currency = []
+	for i in query:
+		mass_currency.append(i.currency_value)
 
+	mass_currency_rev = []
+	for i in reversed(mass_currency):
+		mass_currency_rev.append(i)
 
+	return mass_dates_rev, mass_currency_rev
 

@@ -12,6 +12,7 @@ from flask import url_for
 
 from functions import *
 
+
 dashbord = Blueprint('dashbord', __name__, template_folder ='templates' )
 
 
@@ -28,7 +29,7 @@ def index():
 		funcstart = get_content(ready_url(main_url, new_currency))
 		print(funcstart)
 
-		new_value = float(funcstart)
+		new_value = round(float(funcstart), 3)
 
 		print(new_value)
 
@@ -42,10 +43,31 @@ def index():
 
 	else:
 		form = CurrencyForm()
-		currency = Currency.query.order_by(db.desc(Currency.currency_date)).all()
+
+		graph_usd_to_ils = Currency.query.filter(Currency.currency_name == '/USD/ILS/').order_by(db.desc(Currency.currency_date)).limit(7)
+
+		graph_ils_to_rub = Currency.query.filter(Currency.currency_name == '/ILS/RUB/').order_by(db.desc(Currency.currency_date)).limit(7)
+		
 
 
-		return render_template('dashbord/index.html', form = form, currency = currency, )
+		mass_dates_rev_u_i, mass_currency_rev_u_i = reverce_val(graph_usd_to_ils)
+
+
+		mass_dates_rev_i_r, mass_currency_rev_i_r = reverce_val(graph_ils_to_rub)
+
+
+
+		return render_template('dashbord/index.html', 
+			form = form, 
+			currency_usd_to_ils = graph_usd_to_ils,
+			currency_ils_to_rub = graph_ils_to_rub, 
+
+			mass_dates = mass_dates_rev_u_i, 
+			mass_currency = mass_currency_rev_u_i, 
+
+			mass_dates_2 = mass_dates_rev_i_r, 
+			mass_currency_2 = mass_currency_rev_i_r, 
+			)
 
 
 
