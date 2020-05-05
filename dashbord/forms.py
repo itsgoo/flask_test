@@ -5,5 +5,8 @@ from models import Currency
 class CurrencyForm(Form):
 	"""docstring for PostForm"""
 
-	currency_name = StringField('Currency')
-	currency_value = StringField('new_value')
+
+	currency_name = SelectField(u'Currency', choices=[
+		('/USD/ILS/','USD to ILS'), 
+		('/ILS/RUB/','ILS to RUB'), 
+		])

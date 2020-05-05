@@ -60,7 +60,7 @@ class Tag(db.Model):
 class Currency(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	currency_name = db.Column(db.String(100))
-	currency_value = db.Column(db.Integer)
+	currency_value = db.Column(db.Float)
 	currency_date = db.Column(db.DateTime, default=datetime.now())
 
 	def __init__(self, *args, **kwargs):

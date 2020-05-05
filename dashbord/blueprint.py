@@ -10,14 +10,28 @@ from app import db
 from flask import redirect
 from flask import url_for
 
+from functions import *
+
 dashbord = Blueprint('dashbord', __name__, template_folder ='templates' )
 
 
 @dashbord.route('/', methods = ['POST', 'GET'])
 def index():
 	if request.method == 'POST':
+
+
+
+
+
+
 		new_currency = request.form['currency_name']
-		new_value = request.form['currency_value']
+		funcstart = get_content(ready_url(main_url, new_currency))
+		print(funcstart)
+
+		new_value = float(funcstart)
+
+		print(new_value)
+
 		try:
 			currency_note = Currency(currency_name = new_currency, currency_value = new_value)
 			db.session.add(currency_note)
@@ -28,7 +42,7 @@ def index():
 
 	else:
 		form = CurrencyForm()
-		currency = Currency.query.all()
+		currency = Currency.query.order_by(db.desc(Currency.currency_date)).all()
 
 
 		return render_template('dashbord/index.html', form = form, currency = currency, )
